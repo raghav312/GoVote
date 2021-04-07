@@ -1,5 +1,9 @@
 # GoVote
 <!---- Inital Phase ---->
+Current-> Main Page
+
+
+
 
 1. Make first page.
   -> Authentication 
