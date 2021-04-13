@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddhaarVoterAuthenticator">
+    tools:context=".AddhaarVoterAuthenticator"
+    android:background="@color/white"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_authenticator"
@@ -17,44 +19,124 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please Verify Addhaar + Voter ID"
+            android:text="Step 1: Please Verify Addhaar + Voter ID"
             android:textStyle="italic"
-            android:textColor="@color/smoke"
-            android:textSize="18sp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+
             />
 
     </androidx.appcompat.widget.Toolbar>
 
 
     <LinearLayout
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userAadhaar"
+        <TextView
+            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter Addhaar Number"
-            android:textColor="@color/smoke"
-            android:textSize="12sp">
+            android:fontFamily="monospace"
+            android:text="Enter 12-digit Addhaar Number"
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/nameOfStyle"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tinAddharNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="14sp"
+                android:fontFamily="monospace"
+                android:hint="*Required"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        </com.google.android.material.textfield.TextInputEditText>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userVoterID"
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_marginBottom="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter Voter ID"
-            android:textColor="@color/smoke"
-            android:textSize="12sp">
+            android:fontFamily="monospace"
+            android:textSize="18sp"
+            android:textColor="@color/blue"
 
-        </com.google.android.material.textfield.TextInputEditText>
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/nameOfStyle"
+            >
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tinVoterId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:fontFamily="monospace"
+                android:textSize="14sp"
+                android:hint="*Required"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/btnVerify"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/item_ripple_btn_auth_bg"
+        android:gravity="center"
+        android:clickable="true"
+        >
+
+        <TextView
+
+            android:letterSpacing="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="8sp"
+            android:text="Verify"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/blue"
+            android:textSize="22sp" />
 
     </LinearLayout>
 

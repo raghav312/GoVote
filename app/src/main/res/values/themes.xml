@@ -14,4 +14,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="nameOfStyle">
+        <item name="colorControlNormal">@color/bg_blue</item>
+        <item name="colorControlActivated">@color/bg_blue_dark</item>
+    </style>
+
 </resources>
