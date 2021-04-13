@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddhaarVoterAuthenticator">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_authenticator"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/white"
+        android:layout_gravity="right"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Verify Addhaar + Voter ID"
+            android:textStyle="italic"
+            android:textColor="@color/smoke"
+            android:textSize="18sp"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userAadhaar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Addhaar Number"
+            android:textColor="@color/smoke"
+            android:textSize="12sp">
+
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userVoterID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Voter ID"
+            android:textColor="@color/smoke"
+            android:textSize="12sp">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
