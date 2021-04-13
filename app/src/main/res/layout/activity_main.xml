@@ -18,13 +18,20 @@
         android:textStyle="bold"
         android:layout_marginBottom="80dp"
         />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_undraw_voting_nvu7__1_"
+        />
+
+
 
     <LinearLayout
         android:id="@+id/btnAuth"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/item_ripple_btn_auth_bg"
         android:gravity="center"
         android:clickable="true"
