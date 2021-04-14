@@ -61,7 +61,7 @@
                 android:textSize="14sp"
                 android:fontFamily="monospace"
                 android:hint="*Required"
-
+                android:maxLength="12"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -138,6 +138,56 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/blue"
             android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tvIncorrectCred"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Wrong credentials! Please enter correct details."
+            android:textSize="11sp"
+            android:textColor="#FF0000"
+            android:textStyle="italic"
+            android:fontFamily="monospace"
+            android:letterSpacing="-0.1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tvCorrectCred"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Good! You are halfway ready"
+            android:textSize="11sp"
+            android:textColor="#32CD32"
+            android:textStyle="italic"
+            android:fontFamily="monospace"
+            android:letterSpacing="-0.1"
+            />
+
 
     </LinearLayout>
 
