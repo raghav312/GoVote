@@ -1,16 +1,11 @@
 package com.example.govote
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.govote.databinding.ActivityAddhaarVoterAuthenticatorBinding
-import kotlinx.android.synthetic.main.activity_addhaar_voter_authenticator.*
-
 
 class AddhaarVoterAuthenticator : AppCompatActivity() {
     private lateinit var binding: ActivityAddhaarVoterAuthenticatorBinding
@@ -24,10 +19,10 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
         binding.tvIncorrectCred.visibility = View.GONE
         binding.tvCorrectCred.visibility = View.GONE
 
-        var userAadhaar: String = binding.tinAddharNumber.text.toString()
-        verhoeffVerification(userAadhaar)
 
         binding.btnVerify.setOnClickListener {
+            var userAadhaar: String = binding.tinAddharNumber.text.toString()
+            verhoeffVerification(userAadhaar)
             getVerified()
         }
 
@@ -35,11 +30,15 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
 
 
     private fun getVerified(){
+
         if(isItVerified){
             binding.tinAddharNumber.text?.clear()
             binding.tinVoterId.text?.clear()
             binding.tvIncorrectCred.visibility = View.GONE
             binding.tvCorrectCred.visibility = View.VISIBLE
+            val intent = Intent(this, OtpActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }else{
             binding.tvCorrectCred.visibility = View.GONE
@@ -49,10 +48,8 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
     }
 
     private fun verhoeffVerification(num: String){
-        isItVerified = Verhoeff.isAadhaarNumberValid(num)
+        isItVerified = AadhaarUtil.isAadhaarNumberValid(num)
     }
 
-
-
-
 }
+

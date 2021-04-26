@@ -5,27 +5,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddhaarVoterAuthenticator"
     android:background="@color/white"
-    >
+    tools:context=".OtpActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_authenticator"
+        android:id="@+id/toolbar_otp"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/white"
         android:layout_gravity="right"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Step 1: Please Verify Addhaar + Voter ID"
-            android:textStyle="italic"
-            android:textColor="@color/grey"
-            android:textSize="14sp"
-            />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step 2: Enter your Mobile number and verify"
+        android:textStyle="italic"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
+
+        />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Enter Mobile Number"
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/nameOfStyle"
+
+            >
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tinPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:textSize="14sp"
+                android:fontFamily="monospace"
+                android:hint="Number"
+                android:maxLength="10"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/btnSendOTP"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/item_ripple_btn_auth_bg"
+        android:gravity="center"
+        android:clickable="true"
+        >
+        <TextView
+
+            android:letterSpacing="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Send OTP"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/blue"
+            android:textSize="18sp" />
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -41,11 +110,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="Enter 12-digit Addhaar Number"
+            android:text="Enter OTP "
             android:textSize="18sp"
             android:textColor="@color/blue"
 
             />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,142 +123,44 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tinAddharNumber"
+                android:id="@+id/tinOTP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:textSize="14sp"
                 android:fontFamily="monospace"
-                android:hint="*Required"
-                android:maxLength="12"
+                android:hint="OTP"
+                android:maxLength="6"
+                style="pin"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
     </LinearLayout>
 
-
     <LinearLayout
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_marginBottom="12sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enter Voter ID"
-            android:fontFamily="monospace"
-            android:textSize="18sp"
-            android:textColor="@color/blue"
-
-            />
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/nameOfStyle"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tinVoterId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:fontFamily="monospace"
-                android:textSize="14sp"
-                android:hint="*Required"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/btnVerify"
+        android:id="@+id/btnOTP"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/item_ripple_btn_auth_bg"
         android:gravity="center"
         android:clickable="true"
         >
-
         <TextView
 
-            android:id="@+id/VerifyText"
             android:letterSpacing="0.2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="8sp"
-            android:text="Verify"
+            android:text="Confirm OTP"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/blue"
-            android:textSize="22sp" />
-
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/tvIncorrectCred"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"
-
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Wrong credentials! Please enter correct details."
-            android:textSize="11sp"
-            android:textColor="#FF0000"
-            android:textStyle="italic"
-            android:fontFamily="monospace"
-            android:letterSpacing="-0.1"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/tvCorrectCred"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"
-
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Good! You are halfway ready"
-            android:textSize="11sp"
-            android:textColor="#32CD32"
-            android:textStyle="italic"
-            android:fontFamily="monospace"
-            android:letterSpacing="-0.1"
-            />
-
-
-    </LinearLayout>
 
 
 

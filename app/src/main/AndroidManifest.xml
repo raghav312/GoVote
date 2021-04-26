@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GoVote">
-        <activity android:name=".VotePage"></activity>
+
+<activity android:name=".VotePage"></activity>
+        <activity
+            android:name=".OtpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AddhaarVoterAuthenticator"
             android:screenOrientation="portrait"

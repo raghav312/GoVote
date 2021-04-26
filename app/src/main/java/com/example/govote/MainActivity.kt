@@ -24,5 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
 
+
+
+
     }
 }
