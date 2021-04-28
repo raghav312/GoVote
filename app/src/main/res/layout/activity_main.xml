@@ -22,6 +22,7 @@
         />
 
     <ImageView
+
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/ic_undraw_voting_nvu7__1_"

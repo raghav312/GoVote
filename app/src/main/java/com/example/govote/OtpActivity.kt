@@ -1,5 +1,6 @@
 package com.example.govote
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -35,12 +36,14 @@ class OtpActivity : AppCompatActivity() {
         val verify = binding.btnOTP
         val currentUser = auth.currentUser
         if(currentUser  != null){
-            Log.i("asd","Ptani ye kya ha ")
+            Log.i("asd"," Ptani ye kya ha ")
         }
-
+        login.setOnClickListener {
+            getLogIn()
+        }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential?) {
-                Toast.makeText(this@OtpActivity , "Chal gya bhai ! $p0 is the user  ",Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onVerificationFailed(p0: FirebaseException?) {
@@ -58,18 +61,15 @@ class OtpActivity : AppCompatActivity() {
 
         }
 
-        login.setOnClickListener {
-            getLogIn()
-        }
-
         verify.setOnClickListener {
             val code = binding.tinOTP.text.toString().trim()
             if(TextUtils.isEmpty(code)){
-                Toast.makeText(this@OtpActivity , "Can not eave this field empty ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@OtpActivity , "Can not leave this field empty ",Toast.LENGTH_SHORT).show()
             }else {
                 getUserVerification(storedVerificationId, code)
             }
         }
+
 
     }
 
@@ -104,12 +104,19 @@ class OtpActivity : AppCompatActivity() {
     private fun signIN(cred: PhoneAuthCredential) {
         auth.signInWithCredential(cred)
                 .addOnSuccessListener {
+
                 val phone = auth.currentUser.phoneNumber
                     Toast.makeText(this@OtpActivity , "Success, Logged in as $phone",Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@OtpActivity , VotePage::class.java)
+                    startActivity(intent)
+                    finish()
+
                 }
+
                 .addOnFailureListener {
                     Toast.makeText(this@OtpActivity , "Try OTP again!",Toast.LENGTH_SHORT).show()
                 }
+
     }
 
 
