@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         binding.btnAuth.setOnClickListener{
-            val intent = Intent(this,VotePage::class.java)
+            val intent = Intent(this,AddhaarVoterAuthenticator::class.java)
             startActivity(intent)
         }
 
