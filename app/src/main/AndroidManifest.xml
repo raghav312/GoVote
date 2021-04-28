@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoVote">
 
-<activity android:name=".VotePage"></activity>
+        <activity
+            android:name=".VotePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
         <activity
             android:name=".OtpActivity"
             android:screenOrientation="portrait"

@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VotePage">
+    tools:context=".VotePage"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Welcome "
+        android:textColor="@color/blue"
+        android:textSize="35sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.1"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:text="     Lets get you going!"
+        android:layout_marginBottom="30dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCandidates"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

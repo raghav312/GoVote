@@ -36,7 +36,7 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
             binding.tinVoterId.text?.clear()
             binding.tvIncorrectCred.visibility = View.GONE
             binding.tvCorrectCred.visibility = View.VISIBLE
-            val intent = Intent(this, OtpActivity::class.java)
+            val intent = Intent(this, VotePage::class.java)
             startActivity(intent)
             finish()
 
