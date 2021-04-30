@@ -3,11 +3,13 @@ package com.example.govote
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.govote.databinding.ActivityAddhaarVoterAuthenticatorBinding
 
 class AddhaarVoterAuthenticator : AppCompatActivity() {
+    var userAadhaar: String = ""
     private lateinit var binding: ActivityAddhaarVoterAuthenticatorBinding
     private var isItVerified:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,7 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
 
 
         binding.btnVerify.setOnClickListener {
-            var userAadhaar: String = binding.tinAddharNumber.text.toString()
+             userAadhaar = binding.tinAddharNumber.text.toString()
             verhoeffVerification(userAadhaar)
             getVerified()
         }
@@ -36,7 +38,9 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
             binding.tinVoterId.text?.clear()
             binding.tvIncorrectCred.visibility = View.GONE
             binding.tvCorrectCred.visibility = View.VISIBLE
-            val intent = Intent(this, VotePage::class.java)
+            val intent = Intent(this, OtpActivity::class.java)
+            intent.putExtra("AadhaarUser",userAadhaar)
+            Toast.makeText(this, "adhaaar is $userAadhaar", Toast.LENGTH_SHORT).show()
             startActivity(intent)
             finish()
 
