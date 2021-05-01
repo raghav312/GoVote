@@ -123,6 +123,7 @@ class OtpActivity : AppCompatActivity() {
                 .addOnSuccessListener {
 
                     val aadhaar=intent.getStringExtra("AadhaarUser")
+                    val userName = intent.getStringExtra("NameUser")
                     Toast.makeText(this@OtpActivity, "adhaaar is $aadhaar", Toast.LENGTH_SHORT).show()
 
 
@@ -132,7 +133,7 @@ class OtpActivity : AppCompatActivity() {
                             it1
                         )
                     }
-                    val usersDao=UserDao()
+                    val usersDao = UserDao()
                     usersDao.addUser(user)
 
                 val phone = auth.currentUser.phoneNumber
