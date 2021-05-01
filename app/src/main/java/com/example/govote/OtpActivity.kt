@@ -1,18 +1,18 @@
 package com.example.govote
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.govote.databinding.ActivityOtpBinding
+import com.example.govote.doas.UserDao
+import com.example.govote.models.User
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 
 class OtpActivity : AppCompatActivity() {
@@ -36,7 +36,7 @@ class OtpActivity : AppCompatActivity() {
         val verify = binding.btnOTP
         val currentUser = auth.currentUser
         if(currentUser  != null){
-            Log.i("asd"," Ptani ye kya ha ")
+            Log.i("asd", " Ptani ye kya ha ")
         }
         login.setOnClickListener {
             getLogIn()
@@ -47,11 +47,22 @@ class OtpActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(p0: FirebaseException?) {
-                Toast.makeText(this@OtpActivity , "Na chala bhai ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@OtpActivity, "Na chala bhai ", Toast.LENGTH_SHORT).show()
+                if (p0 is FirebaseAuthInvalidCredentialsException) {
+                    Toast.makeText(this@OtpActivity, "Na chala bhai invalid ", Toast.LENGTH_SHORT).show()
+
+
+                } else if (p0 is FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                    Toast.makeText(this@OtpActivity, "Na chala bhai exceeded ", Toast.LENGTH_SHORT).show()
+                }
+
+
+
             }
 
             override fun onCodeSent(p0: String?, p1: PhoneAuthProvider.ForceResendingToken?) {
-                Log.i("TAG","onCodeSent:$p0")
+                Log.i("TAG", "onCodeSent:$p0")
                 if (p0 != null && p1!=null) {
                     storedVerificationId = p0
                     resendToken =p1
@@ -64,7 +75,11 @@ class OtpActivity : AppCompatActivity() {
         verify.setOnClickListener {
             val code = binding.tinOTP.text.toString().trim()
             if(TextUtils.isEmpty(code)){
-                Toast.makeText(this@OtpActivity , "Can not leave this field empty ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@OtpActivity,
+                    "Can not leave this field empty ",
+                    Toast.LENGTH_SHORT
+                ).show()
             }else {
                 getUserVerification(storedVerificationId, code)
             }
@@ -72,6 +87,8 @@ class OtpActivity : AppCompatActivity() {
 
 
     }
+
+
 
     private fun getLogIn(){
         val mobileNumber = binding.tinPhoneNumber
@@ -81,12 +98,12 @@ class OtpActivity : AppCompatActivity() {
             number = "+91"+number
             sendVerificationCode(number)
         }else{
-            Toast.makeText(this@OtpActivity , "Try phone Number again!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@OtpActivity, "Try phone Number again!", Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    private fun sendVerificationCode(number : String){
+    private fun sendVerificationCode(number: String){
         val options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(number)       // Phone number to verify
                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
@@ -96,8 +113,8 @@ class OtpActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    private fun getUserVerification(verificationId : String? , code: String){
-        val cred = PhoneAuthProvider.getCredential(verificationId,code)
+    private fun getUserVerification(verificationId: String?, code: String){
+        val cred = PhoneAuthProvider.getCredential(verificationId, code)
         signIN(cred)
     }
 
@@ -105,16 +122,33 @@ class OtpActivity : AppCompatActivity() {
         auth.signInWithCredential(cred)
                 .addOnSuccessListener {
 
+                    val aadhaar=intent.getStringExtra("AadhaarUser")
+                    Toast.makeText(this@OtpActivity, "adhaaar is $aadhaar", Toast.LENGTH_SHORT).show()
+
+
+                    val user= aadhaar?.let { it1 ->
+                        User(
+                            auth.currentUser.uid, auth.currentUser.phoneNumber,
+                            it1
+                        )
+                    }
+                    val usersDao=UserDao()
+                    usersDao.addUser(user)
+
                 val phone = auth.currentUser.phoneNumber
-                    Toast.makeText(this@OtpActivity , "Success, Logged in as $phone",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@OtpActivity , VotePage::class.java)
+                    Toast.makeText(
+                        this@OtpActivity,
+                        "Success, Logged in as $phone",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this@OtpActivity, VotePage::class.java)
                     startActivity(intent)
                     finish()
 
                 }
 
                 .addOnFailureListener {
-                    Toast.makeText(this@OtpActivity , "Try OTP again!",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@OtpActivity, "Try OTP again!", Toast.LENGTH_SHORT).show()
                 }
 
     }
