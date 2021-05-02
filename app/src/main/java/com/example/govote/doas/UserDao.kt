@@ -17,12 +17,10 @@ class UserDao {
             GlobalScope.launch(Dispatchers.IO) {
                 usersCollection.document(user.uid).set(it)
             }
-
-
-
         }
 
     }
+
 
 
 

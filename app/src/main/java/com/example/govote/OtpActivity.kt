@@ -129,11 +129,12 @@ class OtpActivity : AppCompatActivity() {
                     val user= aadhaar?.let { it1 ->
                         User(
                             auth.currentUser.uid, auth.currentUser.phoneNumber,
-                            it1
+                            it1,true
                         )
                     }
                     val usersDao=UserDao()
                     usersDao.addUser(user)
+
 
                 val phone = auth.currentUser.phoneNumber
                     Toast.makeText(
@@ -141,9 +142,18 @@ class OtpActivity : AppCompatActivity() {
                         "Success, Logged in as $phone",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@OtpActivity, VotePage::class.java)
-                    startActivity(intent)
-                    finish()
+
+                        val intent = Intent(this@OtpActivity, VotePage::class.java)
+                        startActivity(intent)
+                        finish()
+
+
+
+
+
+
+
+
 
                 }
 
