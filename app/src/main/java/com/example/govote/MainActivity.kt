@@ -11,6 +11,7 @@ import com.example.govote.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         binding.btnAuth.setOnClickListener{
-            val intent = Intent(this,AddhaarVoterAuthenticator::class.java)
+            val intent = Intent(this,VotePage::class.java)
             startActivity(intent)
         }
 

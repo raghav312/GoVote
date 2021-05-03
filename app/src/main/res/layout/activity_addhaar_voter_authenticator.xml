@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Step 1: Please Verify Addhaar + Voter ID"
+            android:text="Step 1: Please Verify Addhaar "
             android:textStyle="italic"
             android:textColor="@color/grey"
             android:textSize="14sp"
@@ -83,7 +83,7 @@
             android:layout_marginBottom="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter Voter ID"
+            android:text="Enter Name"
             android:fontFamily="monospace"
             android:textSize="18sp"
             android:textColor="@color/blue"
@@ -96,10 +96,10 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tinVoterId"
+                android:id="@+id/tinUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="text"
                 android:fontFamily="monospace"
                 android:textSize="14sp"
                 android:hint="*Required"

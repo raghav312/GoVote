@@ -3,12 +3,12 @@ package com.example.govote
 import android.media.Image
 
 class PartyPeopleModel(
-        private var id: Int,
+        private var id: Int ,
         private var name:String,
         private var img: Int,
         private var area:String,
         private var candidateParty: String,
-        private var isSelected:Boolean
+        private var isSelected:Boolean = false
 
 ) {
 
@@ -37,7 +37,7 @@ class PartyPeopleModel(
         this.img = img
     }
 
-    fun setIsSelected():Boolean{
+    fun getIsSelected():Boolean{
         return isSelected
     }
 
