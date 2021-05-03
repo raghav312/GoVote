@@ -24,7 +24,8 @@ class AddhaarVoterAuthenticator : AppCompatActivity() {
 
 
         binding.btnVerify.setOnClickListener {
-             userAadhaar = binding.tinAddharNumber.text.toString()
+            userAadhaar = binding.tinAddharNumber.text.toString()
+            userName=binding.tinUserName.text.toString()
             verhoeffVerification(userAadhaar)
             getVerified()
         }

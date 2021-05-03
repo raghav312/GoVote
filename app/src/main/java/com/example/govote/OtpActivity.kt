@@ -10,18 +10,28 @@ import androidx.core.content.ContextCompat
 import com.example.govote.databinding.ActivityOtpBinding
 import com.example.govote.doas.UserDao
 import com.example.govote.models.User
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import java.util.concurrent.TimeUnit
+
 
 class OtpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOtpBinding
+    var flag:Boolean?=true
     lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks : PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private val db = FirebaseFirestore.getInstance()
+    var voted:Boolean?=false
+    var userdb: User?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -76,9 +86,9 @@ class OtpActivity : AppCompatActivity() {
             val code = binding.tinOTP.text.toString().trim()
             if(TextUtils.isEmpty(code)){
                 Toast.makeText(
-                    this@OtpActivity,
-                    "Can not leave this field empty ",
-                    Toast.LENGTH_SHORT
+                        this@OtpActivity,
+                        "Can not leave this field empty ",
+                        Toast.LENGTH_SHORT
                 ).show()
             }else {
                 getUserVerification(storedVerificationId, code)
@@ -122,33 +132,74 @@ class OtpActivity : AppCompatActivity() {
         auth.signInWithCredential(cred)
                 .addOnSuccessListener {
 
-                    val aadhaar=intent.getStringExtra("AadhaarUser")
-                    val userName = intent.getStringExtra("NameUser")
+                    val aadhaar = intent.getStringExtra("AadhaarUser")
+                    val userName = intent.getStringExtra("NameUser")!!
                     Toast.makeText(this@OtpActivity, "adhaaar is $aadhaar", Toast.LENGTH_SHORT).show()
-
-
-                    val user= aadhaar?.let { it1 ->
-                        User(
-                            auth.currentUser.uid, auth.currentUser.phoneNumber,
-                            it1,true
-                        )
-                    }
                     val usersDao = UserDao()
-                    usersDao.addUser(user)
+//                 val docRef=db.collection("users").document(aadhaar!!)
+//                        docRef.get().addOnSuccessListener{
+//                                documentSnapshot ->
+//                            voted= documentSnapshot.get("voted") as Boolean
+//                            Toast.makeText(this@OtpActivity, "adhaaar is $voted ", Toast.LENGTH_SHORT).show()
+//                            if (voted==false) {
+//
+//                    }
+//                            else{
+//
+//
+//
+//                            }
+//
+//
+//                }
+//                docRef.get().addOnFailureListener {
+//                    val user = aadhaar?.let { it1 ->
+//                        User(
+//                            auth.currentUser.uid, userName, auth.currentUser.phoneNumber,
+//                            it1
+//                        )
+//                    }
+                    //   usersDao.addUser(user)
 
 
-                val phone = auth.currentUser.phoneNumber
-                    Toast.makeText(
-                        this@OtpActivity,
-                        "Success, Logged in as $phone",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                        val intent = Intent(this@OtpActivity, VotePage::class.java)
-                        startActivity(intent)
-                        finish()
 
 
+                    val usersRef: CollectionReference = db.collection("users")
+                    val query: Query = usersRef.whereEqualTo("aadhaarNumber", aadhaar)
+                    query.get()
+                            .addOnCompleteListener(OnCompleteListener<QuerySnapshot?> { task ->
+                                if (task.isSuccessful) {
+                                    for (documentSnapshot in task.result!!) {
+                                        val user = documentSnapshot.getString("aadhaarNumber")
+                                       val  voted= documentSnapshot.get("voted") as Boolean
+                                        if (user == aadhaar && voted) {
+                                            flag=false
+
+                                            Toast.makeText(
+                                                    this@OtpActivity,
+                                                    "Abe karto diya tha Vote tune",
+                                                    Toast.LENGTH_SHORT
+                                            ).show()
+                                            val intent = Intent(this@OtpActivity, MainActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+
+                                        }
+
+                                        else if(user == aadhaar ){
+                                                    flag=false
+                                            Toast.makeText(
+                                                    this@OtpActivity,
+                                                    "Le karle vote",
+                                                    Toast.LENGTH_SHORT
+                                            ).show()
+                                            val intent = Intent(this@OtpActivity, VotePage::class.java)
+                                            intent.putExtra("Aadhaar",aadhaar)
+                                            startActivity(intent)
+                                            finish()
+
+
+                                        }
 
 
 
@@ -156,13 +207,71 @@ class OtpActivity : AppCompatActivity() {
 
 
 
+                                    }
+                                }
+                                if (task.result!!.size() === 0 || flag==true) {
+                                    Toast.makeText(
+                                            this@OtpActivity,
+                                            "naya Username hai mast ",
+                                            Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    val user = aadhaar?.let {it1 ->
+                                        User(auth.currentUser.uid, userName, auth.currentUser.phoneNumber, it1)
+                                    }
+
+                                    usersDao.addUser(user)
+
+                                    val intent = Intent(this@OtpActivity, VotePage::class.java)
+                                    intent.putExtra("Aadhaar",aadhaar)
+                                    startActivity(intent)
+                                    finish()
+
+                                }
+                            })
                 }
 
                 .addOnFailureListener {
-                    Toast.makeText(this@OtpActivity, "Try OTP again!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@OtpActivity, "Try OTP again!", Toast.LENGTH_SHORT)
+                            .show()
                 }
+
+
+
+
+
+
 
     }
 
 
+
+//
+
+
+
+
+
+//
+//                        val phone = auth.currentUser.phoneNumber
+//                        Toast.makeText(
+//                            this@OtpActivity,
+//                            "Success, Logged in as $phone",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//
+//                        val intent = Intent(this@OtpActivity, VotePage::class.java)
+//                        startActivity(intent)
+//                        finish()
+
+
+
+
 }
+
+
+
+
+
+
+
