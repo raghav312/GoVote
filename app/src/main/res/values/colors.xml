@@ -16,4 +16,7 @@
     <color name="grey">#565350</color>
     <color name="smoke">#100c08</color>
 
+    <color name="green">#2AD11A</color>
+    <color name="red">#D11A2A</color>
+
 </resources>

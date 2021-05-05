@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +14,7 @@ import com.example.govote.databinding.ActivityOtpBinding
 import com.example.govote.doas.UserDao
 import com.example.govote.models.User
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -32,12 +36,12 @@ class OtpActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     var voted:Boolean?=false
     var userdb: User?=null
-
+    private lateinit var  view: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = ActivityOtpBinding.inflate(layoutInflater)
-        val view = binding.root
+        view = binding.root
         setContentView(view)
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
 
@@ -57,14 +61,18 @@ class OtpActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(p0: FirebaseException?) {
-                Toast.makeText(this@OtpActivity, "Na chala bhai ", Toast.LENGTH_SHORT).show()
-                if (p0 is FirebaseAuthInvalidCredentialsException) {
-                    Toast.makeText(this@OtpActivity, "Na chala bhai invalid ", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view,"Make Internet Connection!" , 6000).show()
 
+                if (p0 is FirebaseAuthInvalidCredentialsException) {
+
+                    Snackbar.make(view,"Invalid credential" , 6000).show()
 
                 } else if (p0 is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    Toast.makeText(this@OtpActivity, "Na chala bhai exceeded ", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(view,
+                            "Too Many Request, Kindly try again after some time " ,
+                            6000).show()
+
                 }
 
 
@@ -134,35 +142,7 @@ class OtpActivity : AppCompatActivity() {
 
                     val aadhaar = intent.getStringExtra("AadhaarUser")
                     val userName = intent.getStringExtra("NameUser")!!
-                    Toast.makeText(this@OtpActivity, "adhaaar is $aadhaar", Toast.LENGTH_SHORT).show()
                     val usersDao = UserDao()
-//                 val docRef=db.collection("users").document(aadhaar!!)
-//                        docRef.get().addOnSuccessListener{
-//                                documentSnapshot ->
-//                            voted= documentSnapshot.get("voted") as Boolean
-//                            Toast.makeText(this@OtpActivity, "adhaaar is $voted ", Toast.LENGTH_SHORT).show()
-//                            if (voted==false) {
-//
-//                    }
-//                            else{
-//
-//
-//
-//                            }
-//
-//
-//                }
-//                docRef.get().addOnFailureListener {
-//                    val user = aadhaar?.let { it1 ->
-//                        User(
-//                            auth.currentUser.uid, userName, auth.currentUser.phoneNumber,
-//                            it1
-//                        )
-//                    }
-                    //   usersDao.addUser(user)
-
-
-
 
                     val usersRef: CollectionReference = db.collection("users")
                     val query: Query = usersRef.whereEqualTo("aadhaarNumber", aadhaar)
@@ -188,25 +168,15 @@ class OtpActivity : AppCompatActivity() {
 
                                         else if(user == aadhaar ){
                                                     flag=false
-                                            Toast.makeText(
-                                                    this@OtpActivity,
-                                                    "Le karle vote",
-                                                    Toast.LENGTH_SHORT
-                                            ).show()
+                                            Snackbar.make(view,"Welcome Back" , 3000).show()
+
                                             val intent = Intent(this@OtpActivity, VotePage::class.java)
                                             intent.putExtra("Aadhaar",aadhaar)
+                                            intent.putExtra("un",userName)
                                             startActivity(intent)
                                             finish()
 
-
                                         }
-
-
-
-
-
-
-
                                     }
                                 }
 
@@ -214,12 +184,6 @@ class OtpActivity : AppCompatActivity() {
 
 
                                 if (task.result!!.size() === 0 || flag==true) {
-                                    Toast.makeText(
-                                            this@OtpActivity,
-                                            "naya Username hai mast ",
-                                            Toast.LENGTH_SHORT
-                                    ).show()
-
                                     val user = aadhaar?.let {it1 ->
                                         User(auth.currentUser.uid, userName, auth.currentUser.phoneNumber, it1)
                                     }
@@ -228,6 +192,7 @@ class OtpActivity : AppCompatActivity() {
 
                                     val intent = Intent(this@OtpActivity, VotePage::class.java)
                                     intent.putExtra("Aadhaar",aadhaar)
+                                    intent.putExtra("un",userName)
                                     startActivity(intent)
                                     finish()
 
@@ -241,35 +206,7 @@ class OtpActivity : AppCompatActivity() {
                 }
 
 
-
-
-
-
-
     }
-
-
-
-//
-
-
-
-
-
-//
-//                        val phone = auth.currentUser.phoneNumber
-//                        Toast.makeText(
-//                            this@OtpActivity,
-//                            "Success, Logged in as $phone",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//
-//                        val intent = Intent(this@OtpActivity, VotePage::class.java)
-//                        startActivity(intent)
-//                        finish()
-
-
-
 
 }
 

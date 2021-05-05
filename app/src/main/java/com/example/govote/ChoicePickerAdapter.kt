@@ -39,7 +39,6 @@ class ChoicePickerAdapter(
                 .from(context)
                 .inflate(R.layout.item_selection_card , parent , false ))
 
-
     }
 
 
