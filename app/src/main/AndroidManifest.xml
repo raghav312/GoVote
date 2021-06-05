@@ -11,20 +11,20 @@
         android:theme="@style/Theme.GoVote">
 
         <activity
-            android:name=".VotePage"
+            android:name=".activities.VotePage"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             ></activity>
         <activity
-            android:name=".OtpActivity"
+            android:name=".activities.OtpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".AddhaarVoterAuthenticator"
+            android:name=".activities.AddhaarVoterAuthenticator"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
